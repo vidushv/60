@@ -5,6 +5,19 @@
 
 using namespace std;
 
+class Row{
+	StackAr<passenger> leftAisle(3);
+	StackAr<passenger> RightAisle(3);
+
+	stackAr<passenger> passengersStanding(3);
+	stackAr<passenger> aislePassenger(3);
+};
+
+class passenger{
+
+
+};
+
 int main(int argc, char** argv)
 {
 
