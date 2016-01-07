@@ -18,10 +18,43 @@ public:
 
 class Row{
 	StackAr<Passenger> leftAisle;
-	StackAr<Passenger> RightAisle;
+	StackAr<Passenger> rightAisle;
 
 	StackAr<Passenger> passengersStanding;
 	Passenger aislePassenger;
+
+	enum State {EMPTY, RIGHT_ROW, WRONG_ROW, STORING_LUGGAGE1, STORING_LUGGAGE2};
+	State state;
+
+public:
+	Row(): state(EMPTY), aislePassenger(NULL)
+	{
+		leftAisle = StackAr<Passenger> (3);
+		rightAisle = StackAr<Passenger> (3);
+		passengersStanding = StackAr<Passenger> (2);
+	}
+	void changeState (State st)
+	{
+		state = st;
+	}
+
+	void step()
+	{
+		switch (state)
+		{
+			case EMPTY:
+
+			case RIGHT_ROW:
+				state = STORING_LUGGAGE1; break;
+			case WRONG_ROW:
+
+			case STORING_LUGGAGE1:
+				state = STORING_LUGGAGE2; break;
+			case STORING_LUGGAGE2:
+		}
+
+	}
+
 };
 
 Queue<Passenger> readPassengers(char *filename)
