@@ -20,7 +20,8 @@ class passenger{
 
 int main(int argc, char** argv)
 {
-
+	QueueAr<Row> rows(48);
+	
 	return 0;
 }
 
