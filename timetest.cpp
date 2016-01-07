@@ -101,7 +101,7 @@ void RunCursorList (char * filename)
 
 void RunStackAr (char *filename)
 {
-	StackAr<int> stack(250000);
+	StackAr<int> stack(500000);
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
@@ -117,7 +117,7 @@ void RunStackAr (char *filename)
 
 void RunStackLi (char *filename)
 {
-	StackLi<int> stack(250000);
+	StackLi<int> stack(500000);
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
@@ -133,7 +133,7 @@ void RunStackLi (char *filename)
 
 void RunQueueAr (char *filename)
 {
-	Queue<int> queue(250000);
+	Queue<int> queue(500000);
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
@@ -149,7 +149,7 @@ void RunQueueAr (char *filename)
 
 void RunSkipList (char *filename)
 {
-	SkipList<int> list( , 250000);
+	SkipList<int> list( , 500000);
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
