@@ -15,7 +15,6 @@ public:
 	Passenger(): seatNumber(0), seat('A') {}
 	Passenger(int n, char s): seatNumber(n), seat(s) {}
 	Passenger(const Passenger& p): seatNumber(p.seatNumber), seat(p.seat) {}
-
 };
 
 class Row{
@@ -24,7 +23,7 @@ class Row{
 	StackAr<Passenger> rightAisle;
 
 	StackAr<Passenger> passengersStanding;
-	Passenger aislePassenger;
+	Passenger* aislePassenger;
 
 	enum State {EMPTY, RIGHT_ROW, WRONG_ROW, STORING_LUGGAGE1, STORING_LUGGAGE2};
 	State state;
@@ -33,9 +32,10 @@ public:
 
     State getState() const {return state;}
     void setState(State stat) {state = stat;}
-    void setPassenger(Passenger& p) {aislePassenger = p;}
+    void setPassenger(Passenger* p) {aislePassenger = p;}
     int getNumber() const {return rowNumber;}
 
+    Row () {}
 	Row(int number): rowNumber(number), state(EMPTY), aislePassenger(NULL)
 	{
 		leftAisle = StackAr<Passenger> (3);
@@ -57,7 +57,7 @@ public:
 			case WRONG_ROW:
                 if (next_row.getState() == EMPTY)
                 {
-                    if (aislePassenger.getNumber() == next_row.getNumber())
+                    if (aislePassenger -> getNumber() == next_row.getNumber())
                         next_row.setState(RIGHT_ROW);
                     else
                         next_row.setState(WRONG_ROW);
@@ -71,17 +71,17 @@ public:
 			case STORING_LUGGAGE1:
 				state = STORING_LUGGAGE2; break;
 			case STORING_LUGGAGE2:
-                switch aislePassenger.getNumber()
+                switch (aislePassenger -> getNumber())
                 {
                     case 'A':
                     case 'B':
                     case 'C':
-                        leftAisle.push(aislePassenger);
+                        leftAisle.push(*aislePassenger);
                         break;
                     case 'D':
                     case 'E':
                     case 'F':
-                        rightAisle.push(aislePassenger);
+                        rightAisle.push(*aislePassenger);
                         break;
                 }
 		}
