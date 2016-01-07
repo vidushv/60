@@ -5,10 +5,30 @@
 using namespace std;
 
 void RunList(char *);
-
+int getChoice();
 
 int main ()
 {
+	
+	do 
+	{
+		choice = getChoice();
+		ct.reset();
+		switch (choice)
+		{
+			case 1: RunList(filename); break;
+			case 2: RunCursorList(filename); break;
+			case 3: RunStackAr(filename); break;
+			case 4: RunStackLi(filename); break;
+			case 5: RunQueueAr(filename); break;
+			case 6: RunSkipList(filename); break;
+		} // switch
+
+		cout << "CPU time: " << ct.cur_CPUTime() << endl;
+	
+	} while (choice > 0);	
+
+
 	return 0;
 
 }
@@ -27,6 +47,9 @@ int getChoice()
 	cout << "6. SkipList" << endl;
 	cout << "Your choice >> ";
 	cin >> userChoice;
+	
+	return userChoice;
+
 }
 
 
