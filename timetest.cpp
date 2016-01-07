@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "CPUTimer.h"
 #include "QueueAr.h"
 #include "StackAr.h"
@@ -7,6 +8,7 @@
 #include "SkipList.h"
 #include "CursorList.h"
 #include "LinkedList.h"
+vector<CursoreNode <int> > cursorSpace(500000);
 
 using namespace std;
 
@@ -85,7 +87,7 @@ void RunList (char *filename)
 
 void RunCursorList (char * filename)
 {
-	CursorList<int> list;
+	CursorList<int> list(cursorSpace);
 	CursorListItr<int> listItr = list.zeroth();
 	ifstream inf(filename);
 	char comm, s[512];
