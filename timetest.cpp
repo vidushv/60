@@ -23,10 +23,11 @@ int main (int argc, char** argv)
 
 	CPUTimer ct;
 	char* filename = argv[1];
+	int choice;
 
 	do 
 	{
-		int choice = getChoice();
+		choice = getChoice();
 		ct.reset();
 		switch (choice)
 		{
@@ -117,7 +118,7 @@ void RunStackAr (char *filename)
 
 void RunStackLi (char *filename)
 {
-	StackLi<int> stack(500000);
+	StackLi<int> stack;
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
