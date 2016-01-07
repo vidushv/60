@@ -7,9 +7,8 @@ using namespace std;
 void RunList(char *);
 int getChoice();
 
-int main ()
-{
-	
+int main (int argc, char** argv)
+{	
 	do 
 	{
 		choice = getChoice();
@@ -69,3 +68,20 @@ void RunList (char *filename)
 			list.remove(value);
 	}		
 }	
+
+void RunCursorList (char * filename)
+{
+	CursorList<int> list;
+	CursorListItr<int> listItr = list.zeroth();
+	ifstream inf(filename);
+	char comm, s[512];
+	int value;
+	inf.getline(s, 512);
+	while (inf >> comm >> value)
+	{
+		if (comm == 'i')
+			list.insert(value, listItr);
+		else
+			list.remove(value);
+	}
+}
