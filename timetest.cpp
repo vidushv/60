@@ -142,8 +142,7 @@ void RunQueueAr (char *filename)
 
 void RunSkipList (char *filename)
 {
-	List<int> list;
-	ListItr<int> listItr = list.zeroth();
+	SkipList<int> list( , 250000);
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
@@ -151,8 +150,8 @@ void RunSkipList (char *filename)
 	while (inf >> comm >> value)
 	{
 		if (comm == 'i')
-			list.insert(value, listItr);
+			list.insert(value);
 		else
-			list.remove(value);
+			list.deleteNode(value);
 	}		
 }	
