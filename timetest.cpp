@@ -149,7 +149,7 @@ void RunQueueAr (char *filename)
 
 void RunSkipList (char *filename)
 {
-	SkipList<int> list( , 500000);
+	SkipList<int> list(-1, 500000);
 	ifstream inf(filename);
 	char comm, s[512];
 	int value;
