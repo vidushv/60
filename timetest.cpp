@@ -9,6 +9,13 @@ void RunList(char *);
 
 int main ()
 {
+	return 0;
+
+}
+
+int getChoice()
+{
+  
 	int userChoice;
 	cout << "      ADT Menu" << endl;
 	cout << "0. Quit" << endl;
@@ -20,9 +27,6 @@ int main ()
 	cout << "6. SkipList" << endl;
 	cout << "Your choice >> ";
 	cin >> userChoice;
-
-	return 0;
-
 }
 
 void RunList (char *filename)
