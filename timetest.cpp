@@ -11,13 +11,22 @@
 using namespace std;
 
 void RunList(char *);
+void RunCursorList (char * filename);
+void RunStackAr (char *filename);
+void RunStackLi (char *filename);
+void RunQueueAr (char *filename);
+void RunSkipList (char *filename);
 int getChoice();
 
 int main (int argc, char** argv)
 {	
+
+	CPUTimer ct;
+	char* filename = argv[1];
+
 	do 
 	{
-		choice = getChoice();
+		int choice = getChoice();
 		ct.reset();
 		switch (choice)
 		{
@@ -54,9 +63,7 @@ int getChoice()
 	cin >> userChoice;
 	
 	return userChoice;
-
 }
-
 
 void RunList (char *filename)
 {
