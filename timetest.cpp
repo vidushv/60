@@ -8,7 +8,7 @@
 #include "SkipList.h"
 #include "CursorList.h"
 #include "LinkedList.h"
-vector<CursoreNode <int> > cursorSpace(500000);
+vector<CursorNode <int> > cursorSpace(500000);
 
 using namespace std;
 
