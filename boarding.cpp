@@ -195,15 +195,20 @@ public:
         if (!passengers.isEmpty())
             return false;
 
+        bool notDone = false;
+
         for (int i = 0; i < 48; i++)
         {
             Row row = rows.dequeue();
             if (row.getState() != EMPTY)
-                return false;
+                notDone = true;
             rows.enqueue(row);
         }
         
-        return true;
+        if (notDone)
+            return false;
+        else
+            return true;
     }
 
     void board()
