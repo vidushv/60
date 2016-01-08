@@ -53,6 +53,9 @@ public:
                 state = STORING_LUGGAGE1;
                 break;
 
+            case WRONG_ROW:
+                break;
+
             case STORING_LUGGAGE1:
                 state = STORING_LUGGAGE2; break;
             case STORING_LUGGAGE2:
@@ -148,7 +151,7 @@ class Plane
     Queue<Passenger> passengers;
     Queue<Row> rows;
 public:
-    Plane(Queue<Passenger>& pass) passengers(pass)
+    Plane(Queue<Passenger>& pass): passengers(pass)
     {
         rows = Queue<Row>(48);
         for (int i = 48; i >= 1; i--)
@@ -172,17 +175,17 @@ public:
             next_row = curr_row;
         }
 
-        if (curr_row.getState == EMPTY && !passengers.isEmpty())
+        if (curr_row.getState() == EMPTY && !passengers.isEmpty())
         {
             Passenger p = passengers.dequeue();
-            curr_row.setPassenger(p);
+            curr_row.setPassenger(&p);
         }
         rows.enqueue(curr_row);
     }
 
     friend ostream& operator << (ostream& os, Plane& plane);
 
-    bool isDone() const
+    bool isDone()
     {
         if (!passengers.isEmpty())
             return false;
@@ -192,6 +195,7 @@ public:
             Row row = rows.dequeue();
             if (row.getState() != EMPTY)
                 return false;
+            rows.enqueue(row);
         }
         
         return true;
@@ -238,10 +242,9 @@ int main(int argc, char** argv)
 {
 	char* file = argv[1];
 
-    Plane plane;
-
 	Queue<Passenger> passengers;
 	passengers = readPassengers(file);
+    Plane plane(passengers);
 
     cout << plane << endl;
 
