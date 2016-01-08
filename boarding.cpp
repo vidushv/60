@@ -5,6 +5,8 @@
 
 using namespace std;
 
+enum State {EMPTY, RIGHT_ROW, WRONG_ROW, STORING_LUGGAGE1, STORING_LUGGAGE2};
+
 class Passenger{
 	int seatNumber;
 	char seat;
@@ -26,7 +28,6 @@ class Row{
 	StackAr<Passenger> passengersStanding;
 	Passenger aislePassenger;
 
-	enum State {EMPTY, RIGHT_ROW, WRONG_ROW, STORING_LUGGAGE1, STORING_LUGGAGE2};
 	State state;
 
 public:
@@ -88,7 +89,23 @@ public:
 
 	}
 
+    friend ostream& operator << (ostream& os, Row& row);
+
 };
+
+ostream& operator << (ostream& os, Row& row)
+{
+    switch (row.state)
+    {
+        case EMPTY: cout << "E"; break;
+        case RIGHT_ROW: cout << "R"; break;
+        case WRONG_ROW: cout << "W"; break;
+        case STORING_LUGGAGE1:
+        case STORING_LUGGAGE2:
+            cout << "S";
+            break;
+    }
+}
 
 class Plane
 {
@@ -103,7 +120,33 @@ public:
             rows.enqueue(row);
         }
     }
+
+    void step()
+    {
+        Row next_row = rows.dequeue();
+        for (int i = 0; i < 48; i++)
+        {
+            Row curr_row = rows.dequeue();
+            curr_row.step(next_row);
+        }
+    }
+
+    friend ostream& operator << (ostream& os, Plane& plane);
+
+    bool isDone() const;
+
+
 };
+
+ostream& operator << (ostream& os, Plane& plane)
+{
+    for (int i = 0; i < 48; i++)
+    {
+        Row row = plane.rows.dequeue();
+        cout << row;
+        plane.rows.enqueue(row);
+    }
+}
 
 Queue<Passenger> readPassengers(char *filename)
 {
@@ -131,9 +174,12 @@ int main(int argc, char** argv)
 {
 	char* file = argv[1];
 
-	Queue<Row> rows(48);
+    Plane plane;
+
 	Queue<Passenger> passengers;
 	passengers = readPassengers(file);
+
+    cout << plane << endl;
 
 	return 0;
 }
