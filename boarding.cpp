@@ -14,18 +14,18 @@ class Passenger{
 public:
     int getNumber() const {return seatNumber;}
     char getSeat() const {return seat;}
-	Passenger(): seatNumber(0), seat('A') {}
-	Passenger(int n, char s): seatNumber(n), seat(s) {}
-	Passenger(const Passenger& p): seatNumber(p.seatNumber), seat(p.seat) {}
+  	Passenger(): seatNumber(0), seat('A') {}
+  	Passenger(int n, char s): seatNumber(n), seat(s) {}
+  	Passenger(const Passenger& p): seatNumber(p.seatNumber), seat(p.seat) {}
 };
 
 class Row{
     int rowNumber;
     State state;
     Passenger aislePassenger;
-	StackAr<Passenger> leftAisle;
-	StackAr<Passenger> rightAisle;
-	StackAr<Passenger> passengersStanding;
+  	StackAr<Passenger> leftAisle;
+  	StackAr<Passenger> rightAisle;
+  	StackAr<Passenger> passengersStanding;
 
 public:
 
@@ -35,7 +35,7 @@ public:
     int getNumber() const {return rowNumber;}
 
     Row (): rowNumber(-1), state(EMPTY) {}
-	Row(int number): rowNumber(number), state(EMPTY)
+	  Row(int number): rowNumber(number), state(EMPTY)
 	{
 		leftAisle = StackAr<Passenger> (3);
 		rightAisle = StackAr<Passenger> (3);
