@@ -22,7 +22,7 @@ public:
 class Row{
     int rowNumber;
     State state;
-    Passenger* aislePassenger;
+    Passenger aislePassenger;
 	StackAr<Passenger> leftAisle;
 	StackAr<Passenger> rightAisle;
 	StackAr<Passenger> passengersStanding;
@@ -31,11 +31,11 @@ public:
 
     State getState() const {return state;}
     void setState(State stat) {state = stat;}
-    void setPassenger(Passenger* p) {aislePassenger = p;}
+    void setPassenger(Passenger p) {aislePassenger = p;}
     int getNumber() const {return rowNumber;}
 
-    Row (): rowNumber(-1), state(EMPTY), aislePassenger(NULL) {}
-	Row(int number): rowNumber(number), state(EMPTY), aislePassenger(NULL)
+    Row (): rowNumber(-1), state(EMPTY) {}
+	Row(int number): rowNumber(number), state(EMPTY)
 	{
 		leftAisle = StackAr<Passenger> (3);
 		rightAisle = StackAr<Passenger> (3);
@@ -57,19 +57,23 @@ public:
                 break;
 
             case STORING_LUGGAGE1:
-                state = STORING_LUGGAGE2; break;
+                state = STORING_LUGGAGE2; 
+                break;
+
             case STORING_LUGGAGE2:
-                switch (aislePassenger -> getNumber())
+                switch (aislePassenger.getSeat())
                 {
                     case 'A':
                     case 'B':
                     case 'C':
-                        leftAisle.push(*aislePassenger);
+                        leftAisle.push(aislePassenger);
+                        state = EMPTY;
                         break;
                     case 'D':
                     case 'E':
                     case 'F':
-                        rightAisle.push(*aislePassenger);
+                        rightAisle.push(aislePassenger);
+                        state = EMPTY;
                         break;
                 }
         }
@@ -90,13 +94,12 @@ public:
 			case WRONG_ROW:
                 if (next_row.getState() == EMPTY)
                 {
-                    if (aislePassenger -> getNumber() == next_row.getNumber())
+                    if (aislePassenger.getNumber() == next_row.getNumber())
                         next_row.setState(RIGHT_ROW);
                     else
                         next_row.setState(WRONG_ROW);
 
                     next_row.setPassenger(aislePassenger);
-                    aislePassenger = NULL;
                     state = EMPTY;
                 }
                 break;
@@ -104,25 +107,23 @@ public:
 			case STORING_LUGGAGE1:
 				state = STORING_LUGGAGE2; break;
 			case STORING_LUGGAGE2:
-                switch (aislePassenger -> getNumber())
+                switch (aislePassenger.getSeat())
                 {
                     case 'A':
                     case 'B':
                     case 'C':
-                        leftAisle.push(*aislePassenger);
+                        leftAisle.push(aislePassenger);
                         break;
                     case 'D':
                     case 'E':
                     case 'F':
-                        rightAisle.push(*aislePassenger);
+                        rightAisle.push(aislePassenger);
                         break;
                 }
+                state = EMPTY;
 		}
-
 	}
-
     friend ostream& operator << (ostream& os, Row& row);
-
 };
 
 ostream& operator << (ostream& os, Row& row)
@@ -178,7 +179,11 @@ public:
         if (curr_row.getState() == EMPTY && !passengers.isEmpty())
         {
             Passenger p = passengers.dequeue();
-            curr_row.setPassenger(&p);
+            curr_row.setPassenger(p);
+            if (p.getNumber() == curr_row.getNumber())
+              curr_row.setState(RIGHT_ROW);
+            else
+              curr_row.setState(WRONG_ROW);
         }
         rows.enqueue(curr_row);
     }
@@ -199,6 +204,17 @@ public:
         }
         
         return true;
+    }
+
+    void board()
+    {
+      int timer = 0;
+      while (!isDone())
+      {
+        timer += 5;
+        step();
+        cout << timer << " " << *this << endl;
+      }
     }
 
 
@@ -244,9 +260,9 @@ int main(int argc, char** argv)
 
 	Queue<Passenger> passengers;
 	passengers = readPassengers(file);
-    Plane plane(passengers);
+  Plane plane(passengers);
 
-    cout << plane << endl;
+  plane.board();
 
 	return 0;
 }
