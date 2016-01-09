@@ -31,7 +31,7 @@ int main (int argc, char** argv)
 	{
 		choice = getChoice();
 		ct.reset();
-		switch (choice)
+		switch (choice) //Switch statement based on user's choice
 		{
 			case 1: RunList(filename); break;
 			case 2: RunCursorList(filename); break;
@@ -39,16 +39,16 @@ int main (int argc, char** argv)
 			case 4: RunStackLi(filename); break;
 			case 5: RunQueueAr(filename); break;
 			case 6: RunSkipList(filename); break;
-		} // switch
+		} // end switch
 
 		cout << "CPU time: " << ct.cur_CPUTime() << endl;
 	
-	} while (choice > 0);	
+	} while (choice > 0);	//end doWhile
 
 
 	return 0;
 
-}
+}//main
 
 int getChoice()
 {
@@ -66,7 +66,7 @@ int getChoice()
 	cin >> userChoice;
 	
 	return userChoice;
-}
+}//getChoice
 
 void RunList (char *filename)
 {
@@ -76,14 +76,14 @@ void RunList (char *filename)
 	char comm, s[512];
 	int value;
 	inf.getline(s, 512);
-	while (inf >> comm >> value)
+	while (inf >> comm >> value) //While values are being read in.
 	{
-		if (comm == 'i')
+		if (comm == 'i') //if the file says to insert.
 			list.insert(value, listItr);
-		else
+		else //othwerise.
 			list.remove(value);
-	}		
-}	
+	}//end while
+}//RunList
 
 void RunCursorList (char * filename)
 {
@@ -93,14 +93,14 @@ void RunCursorList (char * filename)
 	char comm, s[512];
 	int value;
 	inf.getline(s, 512);
-	while (inf >> comm >> value)
+	while (inf >> comm >> value) //While values are being read in.
 	{
-		if (comm == 'i')
+		if (comm == 'i') //if the file says to insert.
 			list.insert(value, listItr);
-		else
+		else //otherwise.
 			list.remove(value);
-	}		
-}	
+	}//end while.
+}//RunCursorList	
 
 void RunStackAr (char *filename)
 {
@@ -109,14 +109,14 @@ void RunStackAr (char *filename)
 	char comm, s[512];
 	int value;
 	inf.getline(s, 512);
-	while (inf >> comm >> value)
+	while (inf >> comm >> value) //while values are being read in.
 	{
-		if (comm == 'i')
+		if (comm == 'i') //if the file says to read in.
 			stack.push(value);
-		else
+		else //otherwise.
 			stack.pop();
 	}		
-}	
+}//RunStackAr
 
 void RunStackLi (char *filename)
 {
@@ -125,14 +125,14 @@ void RunStackLi (char *filename)
 	char comm, s[512];
 	int value;
 	inf.getline(s, 512);
-	while (inf >> comm >> value)
+	while (inf >> comm >> value) //while values are being read in.
 	{
-		if (comm == 'i')
+		if (comm == 'i') //if the file says to read in.
 			stack.push(value);
-		else
+		else //otherwise.
 			stack.pop();
 	}		
-}	
+}//RunStackLi
 
 void RunQueueAr (char *filename)
 {
@@ -141,14 +141,14 @@ void RunQueueAr (char *filename)
 	char comm, s[512];
 	int value;
 	inf.getline(s, 512);
-	while (inf >> comm >> value)
+	while (inf >> comm >> value) //while values are being read in.
 	{
-		if (comm == 'i')
+		if (comm == 'i') //if the file says to insert.
 			queue.enqueue(value);
-		else
+		else //othwerise.
 			queue.dequeue();
 	}		
-}	
+}//RunQueueAr
 
 void RunSkipList (char *filename)
 {
@@ -157,11 +157,11 @@ void RunSkipList (char *filename)
 	char comm, s[512];
 	int value;
 	inf.getline(s, 512);
-	while (inf >> comm >> value)
+	while (inf >> comm >> value)//while values are being read in.
 	{
-		if (comm == 'i')
+		if (comm == 'i') //if the file says to insert.
 			list.insert(value);
-		else
+		else //othwerise.
 			list.deleteNode(value);
 	}		
-}	
+}//RunSkipList
