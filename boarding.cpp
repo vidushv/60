@@ -83,7 +83,7 @@ public:
 
 	void step(Row& next_row)
 	{
-		switch (state) //switch based on current passenger state.
+		switch (state) //switch based on current row state.
 		{
 			case EMPTY:
                 break;
@@ -108,7 +108,7 @@ public:
 			case STORING_LUGGAGE1:
 				state = STORING_LUGGAGE2; break;
 			case STORING_LUGGAGE2:
-                switch (aislePassenger.getSeat())//Switch based on passenger's seat.
+                switch (aislePassenger.getSeat())//Switch based on row's seat.
                 {
                     case 'A':
                     case 'B':
