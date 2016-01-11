@@ -75,6 +75,8 @@ public:
                             passengersStanding.push(leftAisle.topAndPop());
                             state = LEFT_OUT;
                         }
+                        break;
+
                     case 'B':
                         if (leftAisle.isEmpty() || leftAisle.top().getSeat() == 'A')
                         {
@@ -86,14 +88,18 @@ public:
                             passengersStanding.push(leftAisle.topAndPop());
                             state = LEFT_OUT;
                         }
+                        break;
+
                     case 'C':
                         leftAisle.push(aislePassenger);
                         state = EMPTY;
                         break;
+
                     case 'D':
                         rightAisle.push(aislePassenger);
                         state = EMPTY;
                         break;
+
                     case 'E':
                         if (rightAisle.isEmpty() || rightAisle.top().getSeat() == 'F')
                         {
@@ -105,6 +111,8 @@ public:
                             passengersStanding.push(rightAisle.topAndPop());
                             state = RIGHT_OUT;
                         }
+                        break;
+
                     case 'F':
                         if (rightAisle.isEmpty())
                         {
@@ -116,7 +124,10 @@ public:
                             passengersStanding.push(rightAisle.topAndPop());
                             state = RIGHT_OUT;
                         }
-                }//end switch
+                        break;
+                }
+                break;
+
             case LEFT_OUT:
                 if (aislePassenger.getSeat() == 'A' && !leftAisle.isEmpty())
                 {
@@ -128,7 +139,7 @@ public:
                     leftAisle.push(aislePassenger);
                     state = LEFT_IN;
                 }
-                
+                break;
 
             case LEFT_IN:
                 leftAisle.push(passengersStanding.topAndPop());
@@ -136,6 +147,8 @@ public:
                 {
                     state = EMPTY;
                 }
+                break;
+
             case RIGHT_OUT:
                 if (aislePassenger.getSeat() == 'F' && !rightAisle.isEmpty())
                 {
@@ -147,6 +160,7 @@ public:
                     rightAisle.push(aislePassenger);
                     state = RIGHT_IN;
                 }
+                break;
 
             case RIGHT_IN:
                 rightAisle.push(passengersStanding.topAndPop());
@@ -154,6 +168,7 @@ public:
                 {
                     state = EMPTY;
                 }
+                break;
                 
         }//end switch
 
@@ -199,6 +214,7 @@ public:
                             passengersStanding.push(leftAisle.topAndPop());
                             state = LEFT_OUT;
                         }
+                        break;
                     case 'B':
                         if (leftAisle.isEmpty() || leftAisle.top().getSeat() == 'A')
                         {
@@ -210,6 +226,7 @@ public:
                             passengersStanding.push(leftAisle.topAndPop());
                             state = LEFT_OUT;
                         }
+                        break;
                     case 'C':
                         leftAisle.push(aislePassenger);
                         state = EMPTY;
@@ -229,6 +246,7 @@ public:
                             passengersStanding.push(rightAisle.topAndPop());
                             state = RIGHT_OUT;
                         }
+                        break;
                     case 'F':
                         if (rightAisle.isEmpty())
                         {
@@ -240,7 +258,10 @@ public:
                             passengersStanding.push(rightAisle.topAndPop());
                             state = RIGHT_OUT;
                         }
-                }//end switch
+                        break;
+                }
+                break;
+
             case LEFT_OUT:
                 if (aislePassenger.getSeat() == 'A' && !leftAisle.isEmpty())
                 {
@@ -252,14 +273,16 @@ public:
                     leftAisle.push(aislePassenger);
                     state = LEFT_IN;
                 }
+                break;
                 
-
             case LEFT_IN:
                 leftAisle.push(passengersStanding.topAndPop());
                 if (passengersStanding.isEmpty())
                 {
                     state = EMPTY;
                 }
+                break;
+
             case RIGHT_OUT:
                 if (aislePassenger.getSeat() == 'F' && !rightAisle.isEmpty())
                 {
@@ -271,6 +294,7 @@ public:
                     rightAisle.push(aislePassenger);
                     state = RIGHT_IN;
                 }
+                break;
 
             case RIGHT_IN:
                 rightAisle.push(passengersStanding.topAndPop());
@@ -278,6 +302,7 @@ public:
                 {
                     state = EMPTY;
                 }
+                break;
 		}//end switch
 	}//step()
     friend ostream& operator << (ostream& os, Row& row);
