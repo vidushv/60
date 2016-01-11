@@ -5,7 +5,7 @@
 
 using namespace std;
 
-enum State {EMPTY, RIGHT_ROW, WRONG_ROW, STORING_LUGGAGE1, STORING_LUGGAGE2};
+enum State {EMPTY, RIGHT_ROW, WRONG_ROW, STORING_LUGGAGE1, STORING_LUGGAGE2, LEFT_OUT, LEFT_IN, RIGHT_OUT, RIGHT_IN};
 
 class Passenger{
 	int seatNumber;
@@ -65,18 +65,96 @@ public:
                 switch (aislePassenger.getSeat())//switch based on passenger's seat.
                 {
                     case 'A':
+                        if (leftAisle.isEmpty())
+                        {
+                            leftAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(leftAisle.topAndPop());
+                            state = LEFT_OUT;
+                        }
                     case 'B':
+                        if (leftAisle.isEmpty() || leftAisle.top().getSeat() == 'A')
+                        {
+                            leftAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(leftAisle.topAndPop());
+                            state = LEFT_OUT;
+                        }
                     case 'C':
                         leftAisle.push(aislePassenger);
                         state = EMPTY;
                         break;
                     case 'D':
-                    case 'E':
-                    case 'F':
                         rightAisle.push(aislePassenger);
                         state = EMPTY;
                         break;
+                    case 'E':
+                        if (rightAisle.isEmpty() || rightAisle.top().getSeat() == 'F')
+                        {
+                            rightAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(rightAisle.topAndPop());
+                            state = RIGHT_OUT;
+                        }
+                    case 'F':
+                        if (rightAisle.isEmpty())
+                        {
+                            rightAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(rightAisle.topAndPop());
+                            state = RIGHT_OUT;
+                        }
                 }//end switch
+            case LEFT_OUT:
+                if (aislePassenger.getSeat() == 'A' && !leftAisle.isEmpty())
+                {
+                    passengersStanding.push(leftAisle.topAndPop());
+                    state = LEFT_OUT;
+                }//end if
+                else
+                {
+                    leftAisle.push(aislePassenger);
+                    state = LEFT_IN;
+                }
+                
+
+            case LEFT_IN:
+                leftAisle.push(passengersStanding.topAndPop());
+                if (passengersStanding.isEmpty())
+                {
+                    state = EMPTY;
+                }
+            case RIGHT_OUT:
+                if (aislePassenger.getSeat() == 'F' && !rightAisle.isEmpty())
+                {
+                    passengersStanding.push(rightAisle.topAndPop());
+                    state = RIGHT_OUT;
+                }//end if
+                else
+                {
+                    rightAisle.push(aislePassenger);
+                    state = RIGHT_IN;
+                }
+
+            case RIGHT_IN:
+                rightAisle.push(passengersStanding.topAndPop());
+                if (passengersStanding.isEmpty())
+                {
+                    state = EMPTY;
+                }
+                
         }//end switch
 
     }//lastStep()
@@ -108,20 +186,98 @@ public:
 			case STORING_LUGGAGE1:
 				state = STORING_LUGGAGE2; break;
 			case STORING_LUGGAGE2:
-                switch (aislePassenger.getSeat())//Switch based on row's seat.
+                switch (aislePassenger.getSeat())//switch based on passenger's seat.
                 {
                     case 'A':
+                        if (leftAisle.isEmpty())
+                        {
+                            leftAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(leftAisle.topAndPop());
+                            state = LEFT_OUT;
+                        }
                     case 'B':
+                        if (leftAisle.isEmpty() || leftAisle.top().getSeat() == 'A')
+                        {
+                            leftAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(leftAisle.topAndPop());
+                            state = LEFT_OUT;
+                        }
                     case 'C':
                         leftAisle.push(aislePassenger);
+                        state = EMPTY;
                         break;
                     case 'D':
-                    case 'E':
-                    case 'F':
                         rightAisle.push(aislePassenger);
+                        state = EMPTY;
                         break;
+                    case 'E':
+                        if (rightAisle.isEmpty() || rightAisle.top().getSeat() == 'F')
+                        {
+                            rightAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(rightAisle.topAndPop());
+                            state = RIGHT_OUT;
+                        }
+                    case 'F':
+                        if (rightAisle.isEmpty())
+                        {
+                            rightAisle.push(aislePassenger);
+                            state = EMPTY;
+                        }
+                        else
+                        {
+                            passengersStanding.push(rightAisle.topAndPop());
+                            state = RIGHT_OUT;
+                        }
                 }//end switch
-                state = EMPTY;
+            case LEFT_OUT:
+                if (aislePassenger.getSeat() == 'A' && !leftAisle.isEmpty())
+                {
+                    passengersStanding.push(leftAisle.topAndPop());
+                    state = LEFT_OUT;
+                }//end if
+                else
+                {
+                    leftAisle.push(aislePassenger);
+                    state = LEFT_IN;
+                }
+                
+
+            case LEFT_IN:
+                leftAisle.push(passengersStanding.topAndPop());
+                if (passengersStanding.isEmpty())
+                {
+                    state = EMPTY;
+                }
+            case RIGHT_OUT:
+                if (aislePassenger.getSeat() == 'F' && !rightAisle.isEmpty())
+                {
+                    passengersStanding.push(rightAisle.topAndPop());
+                    state = RIGHT_OUT;
+                }//end if
+                else
+                {
+                    rightAisle.push(aislePassenger);
+                    state = RIGHT_IN;
+                }
+
+            case RIGHT_IN:
+                rightAisle.push(passengersStanding.topAndPop());
+                if (passengersStanding.isEmpty())
+                {
+                    state = EMPTY;
+                }
 		}//end switch
 	}//step()
     friend ostream& operator << (ostream& os, Row& row);
@@ -144,6 +300,15 @@ ostream& operator << (ostream& os, Row& row)
         case STORING_LUGGAGE2:
             cout << "S";
             break;
+        case LEFT_IN:
+        case RIGHT_IN:
+            cout << "I";
+            break;
+        case LEFT_OUT:
+        case RIGHT_OUT:
+            cout << "O";
+            break;
+
     }
     return os;
 }//operator << 
