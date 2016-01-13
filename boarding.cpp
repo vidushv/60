@@ -409,8 +409,8 @@ public:
       {
         timer += 5;
         step();
-        cout << timer << " " << *this << endl;
       }//end while.
+      cout << timer << endl;
     }//board()
 
 
@@ -428,10 +428,9 @@ ostream& operator << (ostream& os, Plane& plane)
     return os;
 }// operator << 
 
-Queue<Passenger> readPassengers(char *filename)
+Queue<Passenger> readPassengers(ifstream& inf)
 {
 	Queue<Passenger> passengers (288);
-	ifstream inf(filename);
 
 	int number;
 	char seat;
@@ -444,8 +443,6 @@ Queue<Passenger> readPassengers(char *filename)
 
 	}//end for
 
-	inf.close();
-
 	return passengers;
 
 }//readPassengers()
@@ -453,12 +450,19 @@ Queue<Passenger> readPassengers(char *filename)
 int main(int argc, char** argv)
 {
 	char* file = argv[1];
+    ifstream inf(file);
 
-	Queue<Passenger> passengers;
-	passengers = readPassengers(file);
-  Plane plane(passengers);
+	Queue<Passenger> passengers1 = readPassengers(inf), passengers2 = readPassengers(inf), passengers3 = readPassengers(inf);
 
-  plane.board();
+    inf.close();
+
+    Plane plane1(passengers1), plane2(passengers2), plane3(passengers3);
+    cout << "Back to front: ";
+    plane1.board();
+    cout << "Random: ";
+    plane2.board();
+    cout << "Outside in: ";
+    plane3.board();
 
 	return 0;
 }//main()
