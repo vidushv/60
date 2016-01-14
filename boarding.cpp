@@ -449,8 +449,7 @@ Queue<Passenger> readPassengers(ifstream& inf)
 
 int main(int argc, char** argv)
 {
-	char* file = argv[1];
-    ifstream inf(file);
+    ifstream inf(argv[1]);
 
 	Queue<Passenger> passengers1 = readPassengers(inf), passengers2 = readPassengers(inf), passengers3 = readPassengers(inf);
 

@@ -24,8 +24,10 @@ int main (int argc, char** argv)
 {	
 
 	CPUTimer ct;
-	char* filename = argv[1];
 	int choice;
+	char filename[79];
+	cout << "Filename: ";
+	cin >> filename;
 
 	do 
 	{
@@ -54,6 +56,7 @@ int getChoice()
 {
   
 	int userChoice;
+	cout << endl;
 	cout << "      ADT Menu" << endl;
 	cout << "0. Quit" << endl;
 	cout << "1. LinkedList" << endl;
